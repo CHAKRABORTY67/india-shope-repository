@@ -1,0 +1,286 @@
+.hbtn svg{width:22px;height:22px}
+.hbadge{position:absolute;top:-3px;right:0;min-width:16px;height:16px;border-radius:99px;background:#ff3d00;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--header);padding:0 3px}
+
+/* ── SCROLL BODY ── */
+.scroll-body{overflow-y:auto;padding-bottom:calc(68px + env(safe-area-inset-bottom,0px))}
+
+/* ── PROFILE HERO CARD ── */
+.profile-hero{margin:10px;border-radius:var(--r8);overflow:hidden;box-shadow:var(--shadow)}
+.profile-hero-bg{background:linear-gradient(120deg,#064e1f 0%,#1ba345 60%,#34d058 100%);padding:20px 18px 22px;position:relative;overflow:hidden}
+.ph-circle1{position:absolute;right:-30px;top:-30px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
+.ph-circle2{position:absolute;left:-20px;bottom:-40px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none}
+.ph-inner{display:flex;align-items:center;gap:16px;position:relative}
+.ph-avatar{width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,.2);border:2.5px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-size:28px;font-weight:800;color:#fff;flex-shrink:0}
+
+/* Avatar: both initials and photo supported */
+.ph-avatar{
+  width:68px;height:68px;border-radius:50%;
+  background:rgba(255,255,255,.2);
+  border:2.5px solid rgba(255,255,255,.5);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Baloo 2',cursive;font-size:28px;font-weight:800;color:#fff;
+  flex-shrink:0;overflow:hidden;
+}
+.ph-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+
+.ph-info{flex:1;min-width:0}
+.ph-name{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ph-email{font-size:12px;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@@ -46,13 +55,11 @@
+.ph-stat-n{font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;color:#ffeb3b;line-height:1}
+.ph-stat-l{font-size:10px;font-weight:600;color:rgba(255,255,255,.8);margin-top:2px}
+
+/* ── SELL BANNER ── */
+.sell-banner{margin:0 10px 8px;border-radius:var(--r8);overflow:hidden;background:linear-gradient(135deg,#1565c0,#0d47a1);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);cursor:pointer}
+.sb-left .sb-t{font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;color:#fff;margin-bottom:1px}
+.sb-left .sb-s{font-size:11px;color:rgba(255,255,255,.8)}
+.sb-btn{background:#fff;color:#0d47a1;font-size:12px;font-weight:700;padding:7px 13px;border-radius:var(--r4);flex-shrink:0;cursor:pointer;text-decoration:none;display:block}
+
+/* ── SECTION CARDS ── */
+.menu-sec{background:#fff;margin:0 0 8px;border-radius:0;overflow:hidden}
+.menu-sec-title{font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;padding:12px 14px 6px}
+.menu-item{display:flex;align-items:center;gap:12px;padding:13px 14px;border-bottom:1px solid var(--border2);cursor:pointer;transition:.15s;text-decoration:none;color:var(--t1)}
+@@ -68,18 +75,13 @@
+.mi-title{font-size:14px;font-weight:600;color:var(--t1)}
+.mi-sub{font-size:11.5px;color:var(--t3);margin-top:1px}
+.mi-arrow{color:var(--t4);flex-shrink:0}
+.mi-badge{background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;flex-shrink:0}
+.mi-badge.orange{background:var(--orange)}
+
+/* ── LOGOUT ── */
+.logout-wrap{margin:0 0 8px;background:#fff}
+.logout-btn{width:100%;display:flex;align-items:center;gap:12px;padding:14px 14px;font-size:14px;font-weight:600;color:var(--red)}
+.logout-btn:active{background:#fce4e4}
+
+/* ── APP VERSION ── */
+.app-ver{text-align:center;font-size:11px;color:var(--t4);padding:8px 0 4px}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;justify-content:center}
+.bottom-nav-inner{width:100%;max-width:480px;background:#fff;border-top:1px solid var(--border);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -2px 8px rgba(0,0,0,.08)}
+.bn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:10px 4px;cursor:pointer;text-decoration:none;color:var(--t3);font-size:10px;font-weight:600;border:none;background:none;font-family:'Mukta',sans-serif}
+@@ -88,7 +90,6 @@
+.bn-indicator{width:4px;height:4px;border-radius:50%;background:var(--green);margin-top:2px;opacity:0}
+.bn.active .bn-indicator{opacity:1}
+
+/* ── TOAST ── */
+.toast-wrap{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);z-index:9999;pointer-events:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:481px){.page{box-shadow:0 0 40px rgba(0,0,0,.15);border-left:1px solid var(--border);border-right:1px solid var(--border)}}
+@@ -134,15 +135,15 @@
+    </div>
+    <div class="ph-stats">
+      <div class="ph-stat">
+        <div class="ph-stat-n" id="stat-orders">0</div>
+        <div class="ph-stat-n" id="stat-orders">—</div>
+        <div class="ph-stat-l">Orders</div>
+      </div>
+      <div class="ph-stat">
+        <div class="ph-stat-n" id="stat-wishlist">0</div>
+        <div class="ph-stat-l">Wishlist</div>
+      </div>
+      <div class="ph-stat">
+        <div class="ph-stat-n" id="stat-addresses">0</div>
+        <div class="ph-stat-n" id="stat-addresses">—</div>
+        <div class="ph-stat-l">Addresses</div>
+      </div>
+    </div>
+@@ -160,7 +161,6 @@
+  <!-- MY SHOPPING -->
+  <div class="menu-sec">
+    <div class="menu-sec-title">My Shopping</div>
+
+    <a href="orders.html" class="menu-item">
+      <div class="mi-icon blue">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+@@ -171,7 +171,6 @@
+      </div>
+      <svg class="mi-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+
+    <a href="wishlist.html" class="menu-item">
+      <div class="mi-icon orange">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+@@ -182,7 +181,6 @@
+      </div>
+      <svg class="mi-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+
+    <a href="cart.html" class="menu-item">
+      <div class="mi-icon green">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+@@ -198,7 +196,6 @@
+  <!-- ACCOUNT SETTINGS -->
+  <div class="menu-sec">
+    <div class="menu-sec-title">Account Settings</div>
+
+    <a href="profile.html" class="menu-item">
+      <div class="mi-icon green">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+@@ -209,7 +206,6 @@
+      </div>
+      <svg class="mi-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+
+    <a href="addresses.html" class="menu-item">
+      <div class="mi-icon orange">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+@@ -220,7 +216,6 @@
+      </div>
+      <svg class="mi-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+
+    <a href="payment-methods.html" class="menu-item">
+      <div class="mi-icon blue">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+@@ -232,11 +227,10 @@
+      <svg class="mi-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+  </div>
+  
+
+  <!-- HELP & SUPPORT -->
+  <div class="menu-sec">
+    <div class="menu-sec-title">Help & Support</div>
+
+    <a href="help.html" class="menu-item">
+      <div class="mi-icon gray">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+@@ -247,7 +241,6 @@
+      </div>
+      <svg class="mi-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+
+    <a href="mailto:support@indiashop.com" class="menu-item">
+      <div class="mi-icon gray">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+@@ -258,7 +251,6 @@
+      </div>
+      <svg class="mi-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+
+    <a href="about.html" class="menu-item">
+      <div class="mi-icon gray">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+@@ -282,7 +274,7 @@
+  <div class="app-ver">indiaShop v1.0.0 · Made with ❤️ in India</div>
+  <div style="height:4px"></div>
+
+</div><!-- /scroll-body -->
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+@@ -314,60 +306,74 @@
+
+<script src="static/js/main.js"></script>
+<script>
+  // Redirect if not logged in
+  if (!Auth.isLoggedIn()) window.location.href = 'login.html';
+
+  // ── Populate user info ──────────────────────────────────────────────────────
+  const user = Auth.user();
+  if (user) {
+    const initials = (user.name || 'U').split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('ph-avatar').textContent  = initials;
+    document.getElementById('ph-name').textContent    = user.name  || 'User';
+    document.getElementById('ph-email').textContent   = user.email || '';
+    document.getElementById('ph-phone').textContent   = user.phone ? `📞 +91 ${user.phone}` : '';
+
+    // Show sell banner only for non-sellers
+    if (user.role !== 'seller') {
+  // ── Avatar render helper ────────────────────────────────────────────────
+  function renderAvatar(u) {
+    const avatarEl = document.getElementById('ph-avatar');
+    if (u.avatar_url) {
+      avatarEl.innerHTML = `<img src="${u.avatar_url}" alt="avatar">`;
+    } else {
+      const initials = (u.name || 'U').split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+      avatarEl.textContent = initials;
+    }
+  }
+
+  // ── Populate user info helper ───────────────────────────────────────────
+  function populateUser(u) {
+    renderAvatar(u);
+    document.getElementById('ph-name').textContent  = u.name  || 'User';
+    document.getElementById('ph-email').textContent = u.email || '';
+    document.getElementById('ph-phone').textContent = u.phone ? `📞 +91 ${u.phone}` : '';
+    if (u.role !== 'seller') {
+      document.getElementById('sell-banner').style.display = 'flex';
+    } else {
+      document.getElementById('sell-banner').style.display = 'none';
+    }
+  }
+
+  // ── Cart badge in header ────────────────────────────────────────────────────
+  // ── Step 1: localStorage থেকে সাথে সাথে দেখাও (fast) ──────────────────
+  const cachedUser = Auth.user();
+  if (cachedUser) populateUser(cachedUser);
+
+  // ── Step 2: API থেকে fresh data নাও (always latest photo) ──────────────
+  api('GET', '/users/profile').then(res => {
+    if (!res?.data) return;
+    const u = res.data;
+    Auth.set(Auth.token(), u); // localStorage update
+    populateUser(u);
+  }).catch(() => {});
+
+  // ── Cart badge ──────────────────────────────────────────────────────────
+  (function updateCartBadge() {
+    try {
+      const cart  = JSON.parse(localStorage.getItem('is_cart') || '{}');
+      const count = Object.values(cart).reduce((a, b) => a + (b.qty || 0), 0);
+      const hb    = document.getElementById('cart-hbadge');
+      const count = typeof Cart !== 'undefined' ? Cart.count() : 0;
+      const hb = document.getElementById('cart-hbadge');
+      if (hb && count > 0) { hb.textContent = count; hb.style.display = 'flex'; }
+    } catch {}
+  })();
+
+  // ── Quick stats from localStorage ──────────────────────────────────────────
+  // ── Quick stats ─────────────────────────────────────────────────────────
+  (function loadStats() {
+    const wl   = JSON.parse(localStorage.getItem('is_wishlist') || '[]');
+    const cart = JSON.parse(localStorage.getItem('is_cart') || '{}');
+    document.getElementById('stat-wishlist').textContent   = wl.length;
+    // Orders & addresses would come from API — show dash if unavailable
+    document.getElementById('stat-orders').textContent    = '—';
+    document.getElementById('stat-addresses').textContent = '—';
+
+    // Try fetching order count from API
+    if (typeof api === 'function') {
+      api('GET', '/orders?limit=1').then(d => {
+        const total = d?.data?.total || d?.data?.orders?.length || 0;
+        document.getElementById('stat-orders').textContent = total;
+      }).catch(() => {});
+
+      api('GET', '/addresses').then(d => {
+        const total = (d?.data || []).length;
+        document.getElementById('stat-addresses').textContent = total;
+      }).catch(() => {});
+    }
+    try {
+      const wl = JSON.parse(localStorage.getItem('is_wishlist') || '[]');
+      document.getElementById('stat-wishlist').textContent = wl.length;
+    } catch {}
+
+    api('GET', '/orders?limit=1').then(d => {
+      const total = d?.data?.total ?? (d?.data?.orders?.length ?? 0);
+      document.getElementById('stat-orders').textContent = total;
+    }).catch(() => {});
+
+    api('GET', '/users/addresses').then(d => {
+      const total = (d?.data || []).length;
+      document.getElementById('stat-addresses').textContent = total;
+    }).catch(() => {});
+  })();
+
+  // ── Logout ──────────────────────────────────────────────────────────────────
+  // ── Logout ──────────────────────────────────────────────────────────────
+  function logout() {
+    if (typeof Auth !== 'undefined') Auth.clear();
+    Auth.clear();
+    if (typeof Cart !== 'undefined') Cart.clear();
+    localStorage.removeItem('is_cart');
+    window.location.href = 'index.html';

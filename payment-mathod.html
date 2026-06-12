@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Payment Methods — indiaShop</title>
+<link rel="stylesheet" href="static/css/style.css">
+<link rel="stylesheet" href="static/css/nav.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+.pm-card { background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow-sm); }
+.pm-icon { width: 44px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; }
+.pm-icon.visa { background: #1a1f71; color: #fff; }
+.pm-icon.mc { background: linear-gradient(90deg,#eb001b,#f79e1b); color: #fff; }
+.pm-icon.upi { background: #5f259f; color: #fff; }
+.pm-icon.bank { background: #26a541; color: #fff; }
+.pm-info { flex: 1; }
+.pm-label { font-size: 14px; font-weight: 600; }
+.pm-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
+.default-badge { background: var(--primary-light); color: var(--primary); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 3px; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+::-webkit-scrollbar{display:none}*{scrollbar-width:none}
+:root{--green:#1ba345;--green-d:#147a34;--green-l:#e8f8ee;--orange:#ff6600;--orange-l:#fff3eb;--red:#e53935;--blue:#1565c0;--bg:#f1f3f6;--white:#fff;--border:#e0e0e0;--border2:#f0f0f0;--t1:#212121;--t2:#555;--t3:#878787;--t4:#aaa;--header:#1ba345;--r2:2px;--r4:4px;--r8:8px;--shadow:0 1px 4px rgba(0,0,0,.12)}
+html,body{font-family:'Mukta',sans-serif;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;font-size:14px}
+a{text-decoration:none;color:inherit}
+button{font-family:'Mukta',sans-serif;cursor:pointer;border:none;outline:none;background:none}
+.page{max-width:480px;margin:0 auto;background:var(--bg);min-height:100vh}
+.header{position:sticky;top:0;z-index:100;background:var(--header);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.header-inner{display:flex;align-items:center;gap:10px;padding:12px 14px}
+.back-btn{color:#fff;display:flex;align-items:center;flex-shrink:0}
+.header-title{font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;color:#fff;flex:1}
+.add-btn{background:rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:var(--r4);border:1.5px solid rgba(255,255,255,.4);flex-shrink:0;cursor:pointer}
+.scroll-body{padding:12px 12px calc(80px + env(safe-area-inset-bottom,0px))}
+
+/* INFO STRIP */
+.info-strip{background:var(--orange-l);border:1px solid #ffe0c2;border-radius:var(--r8);padding:10px 14px;margin-bottom:12px;font-size:12px;color:#7c4a00;display:flex;align-items:center;gap:8px}
+
+/* PM CARD */
+.pm-card{background:var(--white);border-radius:var(--r8);padding:14px;margin-bottom:10px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px;border:1.5px solid var(--border2)}
+.pm-card.is-default{border-color:var(--green)}
+.pm-icon-wrap{width:48px;height:32px;border-radius:var(--r4);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;letter-spacing:.5px}
+.pm-icon-wrap.upi{background:#5f259f;color:#fff}
+.pm-icon-wrap.visa{background:#1a1f71;color:#fff}
+.pm-icon-wrap.mastercard{background:linear-gradient(90deg,#eb001b,#f79e1b);color:#fff}
+.pm-icon-wrap.rupay{background:#138808;color:#fff}
+.pm-icon-wrap.bank{background:var(--blue);color:#fff}
+.pm-body{flex:1;min-width:0}
+.pm-label{font-size:14px;font-weight:700;color:var(--t1);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.default-badge{background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px}
+.pm-sub{font-size:12px;color:var(--t3);margin-top:2px}
+.pm-actions{display:flex;gap:6px;flex-shrink:0;flex-direction:column;align-items:flex-end}
+.pm-del{background:#fff5f5;color:var(--red);border:1px solid #ffd0d0;font-size:12px;font-weight:600;padding:5px 10px;border-radius:var(--r4);cursor:pointer}
+.pm-setdef{background:var(--green-l);color:var(--green-d);border:1px solid #b2e4c5;font-size:11px;font-weight:600;padding:4px 9px;border-radius:var(--r4);cursor:pointer}
+
+/* EMPTY */
+.empty-wrap{text-align:center;padding:60px 20px;color:var(--t3)}
+.empty-ico{font-size:52px;margin-bottom:14px}
+.empty-t{font-size:16px;font-weight:700;color:var(--t2);margin-bottom:6px}
+.empty-s{font-size:13px;margin-bottom:20px}
+.btn-green{background:var(--green);color:#fff;font-size:14px;font-weight:700;padding:12px 28px;border-radius:var(--r4);display:inline-block;cursor:pointer;border:none;font-family:'Mukta',sans-serif}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;display:none;align-items:flex-end;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal-sheet{background:var(--white);border-radius:16px 16px 0 0;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;padding:20px 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.modal-handle{width:40px;height:4px;background:var(--border);border-radius:99px;margin:0 auto 16px}
+.modal-title{font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;color:var(--t1);margin-bottom:16px}
+.input-group{display:flex;flex-direction:column;gap:4px;margin-bottom:13px}
+.input-group label{font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.4px}
+.input-group input,.input-group select{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--r4);font-family:'Mukta',sans-serif;font-size:14px;color:var(--t1);background:var(--white);outline:none;transition:.15s}
+.input-group input:focus,.input-group select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(27,163,69,.08)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.check-row{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--t1);cursor:pointer;margin-bottom:16px}
+.check-row input{width:17px;height:17px;accent-color:var(--green);cursor:pointer}
+.modal-actions{display:flex;gap:10px}
+.btn-cancel{flex:1;padding:12px;border:1.5px solid var(--border);border-radius:var(--r4);font-size:14px;font-weight:700;color:var(--t2);background:var(--white);cursor:pointer;font-family:'Mukta',sans-serif}
+.btn-save{flex:1;padding:12px;background:var(--green);border-radius:var(--r4);font-size:14px;font-weight:700;color:#fff;cursor:pointer;border:none;font-family:'Mukta',sans-serif}
+.fields-section{display:none}
+.fields-section.active{display:block}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;justify-content:center}
+.bottom-nav-inner{width:100%;max-width:480px;background:#fff;border-top:1px solid var(--border);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -2px 8px rgba(0,0,0,.08)}
+.bn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:10px 4px;cursor:pointer;text-decoration:none;color:var(--t3);font-size:10px;font-weight:600;border:none;background:none;font-family:'Mukta',sans-serif}
+.bn.active{color:var(--green)}
+.bn svg{width:22px;height:22px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<nav class="navbar"><div class="container"></div></nav>
+<div class="page-content">
+<div class="container" style="max-width:600px">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="account.html" style="color:var(--text3)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></a>
+      <div class="fw-700 fs-18">Saved Payment Methods</div>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="openModal()">+ Add New</button>
+<div class="page">
+
+<header class="header">
+  <div class="header-inner">
+    <a href="account.html" class="back-btn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+    <div class="header-title">💳 Payment Methods</div>
+    <button class="add-btn" onclick="openModal()">+ Add New</button>
+  </div>
+</header>
+
+<div class="scroll-body">
+  <div class="info-strip">
+    ℹ️ Payment methods are saved locally on your device for quick checkout.
+  </div>
+  <div id="pm-list"></div>
+  <div id="pm-empty" class="empty-state" style="display:none">
+    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+    <p>No payment methods saved</p>
+    <button class="btn btn-primary" onclick="openModal()">Add Payment Method</button>
+  <div id="pm-empty" class="empty-wrap" style="display:none">
+    <div class="empty-ico">💳</div>
+    <div class="empty-t">No payment methods saved</div>
+    <div class="empty-s">Add UPI, card or net banking for faster checkout</div>
+    <button class="btn-green" onclick="openModal()">+ Add Payment Method</button>
+  </div>
+
+</div>
+
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a class="bn" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></a>
+    <a class="bn" href="products.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Explore</span></a>
+    <a class="bn" href="cart.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span>Cart</span></a>
+    <a class="bn" href="orders.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Orders</span></a>
+    <a class="bn active" href="account.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Account</span></a>
+  </div>
+</nav>
+
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="pm-modal" style="display:none" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="fw-700 fs-16 mb-4">Add Payment Method</div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="input-wrap">
+        <label>Payment Type</label>
+        <select id="pm-type" onchange="toggleFields()">
+          <option value="upi">UPI</option>
+          <option value="card">Card</option>
+          <option value="bank">Net Banking</option>
+<!-- BOTTOM SHEET MODAL -->
+<div class="modal-overlay" id="pm-modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Add Payment Method</div>
+
+    <div class="input-group">
+      <label>Payment Type</label>
+      <select id="pm-type" onchange="toggleFields()">
+        <option value="upi">📱 UPI</option>
+        <option value="card">💳 Card</option>
+        <option value="bank">🏦 Net Banking</option>
+      </select>
+    </div>
+
+    <!-- UPI -->
+    <div class="fields-section active" id="fields-upi">
+      <div class="input-group">
+        <label>UPI ID *</label>
+        <input type="text" id="upi-id" placeholder="yourname@upi">
+      </div>
+      <div class="input-group">
+        <label>UPI App</label>
+        <select id="upi-app">
+          <option value="GPay">Google Pay</option>
+          <option value="PhonePe">PhonePe</option>
+          <option value="Paytm">Paytm</option>
+          <option value="BHIM">BHIM</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div id="upi-fields">
+        <div class="input-wrap"><label>UPI ID</label><input type="text" id="upi-id" placeholder="yourname@bank"></div>
+    </div>
+
+    <!-- CARD -->
+    <div class="fields-section" id="fields-card">
+      <div class="input-group">
+        <label>Cardholder Name *</label>
+        <input type="text" id="card-name" placeholder="Name on card">
+      </div>
+      <div id="card-fields" style="display:none">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="input-wrap"><label>Cardholder Name</label><input type="text" id="card-name" placeholder="Name on card"></div>
+          <div class="input-wrap"><label>Card Number (last 4)</label><input type="text" id="card-number" placeholder="XXXX" maxlength="4"></div>
+          <div class="grid-2">
+            <div class="input-wrap"><label>Expiry</label><input type="text" id="card-exp" placeholder="MM/YY" maxlength="5"></div>
+            <div class="input-wrap"><label>Card Type</label>
+              <select id="card-type"><option value="visa">Visa</option><option value="mastercard">Mastercard</option><option value="rupay">RuPay</option></select>
+            </div>
+          </div>
+      <div class="input-group">
+        <label>Last 4 Digits *</label>
+        <input type="text" id="card-last4" placeholder="XXXX" maxlength="4" inputmode="numeric">
+      </div>
+      <div class="grid-2">
+        <div class="input-group">
+          <label>Expiry *</label>
+          <input type="text" id="card-exp" placeholder="MM/YY" maxlength="5">
+        </div>
+        <div class="input-group">
+          <label>Card Type</label>
+          <select id="card-type">
+            <option value="visa">Visa</option>
+            <option value="mastercard">Mastercard</option>
+            <option value="rupay">RuPay</option>
+          </select>
+        </div>
+      </div>
+      <div id="bank-fields" style="display:none">
+        <div class="input-wrap"><label>Bank Name</label><input type="text" id="bank-name" placeholder="e.g. SBI, HDFC"></div>
+    </div>
+
+    <!-- BANK -->
+    <div class="fields-section" id="fields-bank">
+      <div class="input-group">
+        <label>Bank Name *</label>
+        <input type="text" id="bank-name" placeholder="e.g. SBI, HDFC, ICICI">
+      </div>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer">
+        <input type="checkbox" id="pm-default" style="accent-color:var(--primary)"> Set as default
+      </label>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:20px">
+      <button class="btn btn-outline flex-1" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary flex-1" id="save-pm-btn" onclick="savePayment()">Save</button>
+
+    <label class="check-row">
+      <input type="checkbox" id="pm-default"> Set as default payment method
+    </label>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-save" onclick="savePayment()">Save</button>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-nav"></nav>
+<script src="static/js/main.js"></script>
+<script>
+  if (!Auth.isLoggedIn()) window.location.href = 'login.html';
+  buildNavbar('account');
+
+  function toggleFields() {
+    const type = document.getElementById('pm-type').value;
+    document.getElementById('upi-fields').style.display = type === 'upi' ? '' : 'none';
+    document.getElementById('card-fields').style.display = type === 'card' ? '' : 'none';
+    document.getElementById('bank-fields').style.display = type === 'bank' ? '' : 'none';
+  }
+if (!localStorage.getItem('is_token')) window.location.href = 'login.html';
+
+// ── STORAGE KEY ───────────────────────────────────────────────────────────────
+const PM_KEY = 'is_payment_methods';
+
+function getPMs() { try { return JSON.parse(localStorage.getItem(PM_KEY) || '[]'); } catch { return []; } }
+function savePMs(list) { localStorage.setItem(PM_KEY, JSON.stringify(list)); }
+
+  function openModal() { document.getElementById('pm-modal').style.display = 'flex'; }
+  function closeModal() { document.getElementById('pm-modal').style.display = 'none'; }
+
+  async function loadPayments() {
+    try {
+      const data = await api('GET', '/payment-methods');
+      const list = document.getElementById('pm-list');
+      const pms = data.payment_methods || [];
+      if (!pms.length) { list.innerHTML = ''; document.getElementById('pm-empty').style.display = 'block'; return; }
+      document.getElementById('pm-empty').style.display = 'none';
+      list.innerHTML = pms.map(pm => {
+        const iconClass = pm.type === 'card' ? (pm.card_type || 'visa') : pm.type === 'upi' ? 'upi' : 'bank';
+        const iconText = pm.type === 'upi' ? 'UPI' : pm.type === 'bank' ? 'NET' : (pm.card_type || 'CARD').toUpperCase().slice(0,4);
+        const label = pm.type === 'upi' ? pm.upi_id : pm.type === 'card' ? `•••• •••• •••• ${pm.card_last4}` : pm.bank_name;
+        const sub = pm.type === 'card' ? `Expires ${pm.card_expiry} · ${pm.card_name}` : pm.type === 'upi' ? 'UPI Payment' : 'Net Banking';
+        return `
+          <div class="pm-card">
+            <div class="pm-icon ${iconClass}">${iconText}</div>
+            <div class="pm-info">
+              <div class="pm-label">${label} ${pm.is_default ? '<span class="default-badge">Default</span>' : ''}</div>
+              <div class="pm-sub">${sub}</div>
+            </div>
+            <button class="btn btn-ghost btn-sm text-danger" onclick="deletePayment(${pm.id})">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+            </button>
+          </div>`;
+      }).join('');
+    } catch { document.getElementById('pm-list').innerHTML = '<p class="text-muted p-4">Failed to load.</p>'; }
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+function showToast(msg, type) {
+  let c = document.getElementById('_tc');
+  if (!c) {
+    c = document.createElement('div');
+    c.id = '_tc';
+    c.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:6px;align-items:center;pointer-events:none';
+    document.body.appendChild(c);
+  }
+  const t = document.createElement('div');
+  t.style.cssText = `background:${type==='error'?'#e53935':type==='success'?'#1ba345':'#333'};color:#fff;padding:10px 18px;border-radius:8px;font-family:'Mukta',sans-serif;font-size:13px;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.2);animation:fadeUp .3s ease;white-space:nowrap`;
+  t.textContent = msg;
+  c.appendChild(t);
+  setTimeout(() => t.remove(), 2800);
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function renderPMs() {
+  const list  = document.getElementById('pm-list');
+  const empty = document.getElementById('pm-empty');
+  const pms   = getPMs();
+
+  async function savePayment() {
+    const type = document.getElementById('pm-type').value;
+    let body = { type, is_default: document.getElementById('pm-default').checked };
+    if (type === 'upi') { body.upi_id = document.getElementById('upi-id').value.trim(); if (!body.upi_id) return toast('Enter UPI ID', 'error'); }
+    else if (type === 'card') {
+      body.card_name = document.getElementById('card-name').value.trim();
+      body.card_last4 = document.getElementById('card-number').value.trim();
+      body.card_expiry = document.getElementById('card-exp').value.trim();
+      body.card_type = document.getElementById('card-type').value;
+      if (!body.card_name || !body.card_last4) return toast('Fill card details', 'error');
+    } else { body.bank_name = document.getElementById('bank-name').value.trim(); if (!body.bank_name) return toast('Enter bank name', 'error'); }
+    const btn = document.getElementById('save-pm-btn');
+    btnLoading(btn, true);
+    try { await api('POST', '/payment-methods', body); closeModal(); loadPayments(); toast('Payment method saved!', 'success'); }
+    catch(e) { toast(e.message, 'error'); }
+    finally { btnLoading(btn, false); }
+  if (!pms.length) {
+    list.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  list.innerHTML = pms.map((pm, idx) => {
+    let iconClass, iconText, label, sub;
+
+  async function deletePayment(id) {
+    if (!confirm('Remove this payment method?')) return;
+    try { await api('DELETE', `/payment-methods/${id}`); loadPayments(); toast('Removed'); }
+    catch(e) { toast(e.message, 'error'); }
+    if (pm.type === 'upi') {
+      iconClass = 'upi';
+      iconText  = 'UPI';
+      label     = esc(pm.upi_id);
+      sub       = esc(pm.upi_app || 'UPI Payment');
+    } else if (pm.type === 'card') {
+      iconClass = esc(pm.card_type || 'visa');
+      iconText  = (pm.card_type || 'CARD').toUpperCase().slice(0, 4);
+      label     = `•••• •••• •••• ${esc(pm.card_last4)}`;
+      sub       = `Expires ${esc(pm.card_exp)} · ${esc(pm.card_name)}`;
+    } else {
+      iconClass = 'bank';
+      iconText  = 'NET';
+      label     = esc(pm.bank_name);
+      sub       = 'Net Banking';
+    }
+
+    return `
+      <div class="pm-card ${pm.is_default ? 'is-default' : ''}">
+        <div class="pm-icon-wrap ${iconClass}">${iconText}</div>
+        <div class="pm-body">
+          <div class="pm-label">
+            ${label}
+            ${pm.is_default ? '<span class="default-badge">✓ Default</span>' : ''}
+          </div>
+          <div class="pm-sub">${sub}</div>
+        </div>
+        <div class="pm-actions">
+          <button class="pm-del" onclick="deletePM(${idx})">🗑 Remove</button>
+          ${!pm.is_default ? `<button class="pm-setdef" onclick="setDefaultPM(${idx})">⭐ Default</button>` : ''}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function openModal() {
+  document.getElementById('pm-type').value = 'upi';
+  document.getElementById('upi-id').value  = '';
+  document.getElementById('upi-app').value = 'GPay';
+  document.getElementById('card-name').value  = '';
+  document.getElementById('card-last4').value = '';
+  document.getElementById('card-exp').value   = '';
+  document.getElementById('card-type').value  = 'visa';
+  document.getElementById('bank-name').value  = '';
+  document.getElementById('pm-default').checked = false;
+  toggleFields();
+  document.getElementById('pm-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('pm-modal').classList.remove('open');
+}
+
+function toggleFields() {
+  const type = document.getElementById('pm-type').value;
+  ['upi','card','bank'].forEach(t => {
+    document.getElementById('fields-' + t).classList.toggle('active', t === type);
+  });
+}
+
+// ── SAVE ──────────────────────────────────────────────────────────────────────
+function savePayment() {
+  const type = document.getElementById('pm-type').value;
+  const isDefault = document.getElementById('pm-default').checked;
+  let pm = { type, is_default: isDefault };
+
+  if (type === 'upi') {
+    pm.upi_id  = document.getElementById('upi-id').value.trim();
+    pm.upi_app = document.getElementById('upi-app').value;
+    if (!pm.upi_id) return showToast('Enter UPI ID', 'error');
+    if (!pm.upi_id.includes('@')) return showToast('Enter valid UPI ID (e.g. name@upi)', 'error');
+  } else if (type === 'card') {
+    pm.card_name  = document.getElementById('card-name').value.trim();
+    pm.card_last4 = document.getElementById('card-last4').value.trim();
+    pm.card_exp   = document.getElementById('card-exp').value.trim();
+    pm.card_type  = document.getElementById('card-type').value;
+    if (!pm.card_name)             return showToast('Cardholder name required', 'error');
+    if (pm.card_last4.length !== 4) return showToast('Enter last 4 digits of card', 'error');
+    if (!pm.card_exp)              return showToast('Enter card expiry', 'error');
+  } else {
+    pm.bank_name = document.getElementById('bank-name').value.trim();
+    if (!pm.bank_name) return showToast('Enter bank name', 'error');
+  }
+
+  loadPayments();
+  const pms = getPMs();
+  if (isDefault) pms.forEach(p => p.is_default = false);
+  pms.push(pm);
+  savePMs(pms);
+  closeModal();
+  renderPMs();
+  showToast('✅ Payment method saved!', 'success');
+}
+
+// ── DELETE ────────────────────────────────────────────────────────────────────
+function deletePM(idx) {
+  if (!confirm('Remove this payment method?')) return;
+  const pms = getPMs();
+  const wasDefault = pms[idx]?.is_default;
+  pms.splice(idx, 1);
+  if (wasDefault && pms.length) pms[0].is_default = true;
+  savePMs(pms);
+  renderPMs();
+  showToast('Removed', 'success');
+}
+
+// ── SET DEFAULT ───────────────────────────────────────────────────────────────
+function setDefaultPM(idx) {
+  const pms = getPMs();
+  pms.forEach((p, i) => p.is_default = i === idx);
+  savePMs(pms);
+  renderPMs();
+  showToast('✅ Default payment updated', 'success');
+}
+
+renderPMs();
+</script>
+</body>
+</html>

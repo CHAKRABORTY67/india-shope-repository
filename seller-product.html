@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>My Products — indiaShop Seller</title>
+<link rel="stylesheet" href="static/css/style.css">
+<link rel="stylesheet" href="static/css/nav.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+.seller-nav { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.seller-nav a { display: flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(--surface); border-radius: var(--radius); font-size: 13px; font-weight: 600; color: var(--text2); box-shadow: var(--shadow-sm); transition: var(--transition); }
+.seller-nav a:hover, .seller-nav a.active { background: var(--primary); color: #fff; }
+.prod-table-row { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-bottom: 1px solid var(--border); transition: background 0.2s; }
+.prod-table-row:hover { background: var(--bg); }
+.prod-img { width: 52px; height: 52px; object-fit: contain; background: var(--bg); border-radius: var(--radius); padding: 4px; flex-shrink: 0; }
+.prod-info { flex: 1; min-width: 0; }
+.prod-name-cell { font-size: 13px; font-weight: 500; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.prod-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.prod-price-cell { font-size: 14px; font-weight: 700; min-width: 80px; text-align: right; }
+.stock-badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 3px; }
+.stock-badge.ok { background: #e8f5e9; color: var(--success); }
+.stock-badge.low { background: #fff8e1; color: var(--warning); }
+.stock-badge.out { background: #fce4e4; color: var(--danger); }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+::-webkit-scrollbar{display:none}*{scrollbar-width:none}
+:root{
+  --green:#1ba345;--green-d:#147a34;--green-l:#e8f8ee;
+  --orange:#ff6600;--red:#e53935;--blue:#1565c0;
+  --bg:#f1f3f6;
+  --border:#e0e0e0;--border2:#f0f0f0;
+  --t1:#212121;--t2:#555;--t3:#878787;--t4:#aaa;
+  --header:#1ba345;
+  --r4:4px;--r8:8px;
+  --shadow:0 1px 4px rgba(0,0,0,.12);
+}
+html,body{font-family:'Mukta',sans-serif;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;font-size:14px}
+a{text-decoration:none;color:inherit}
+button{font-family:'Mukta',sans-serif;cursor:pointer;border:none;outline:none;background:none}
+img{display:block;max-width:100%}
+.page{max-width:480px;margin:0 auto;background:var(--bg);min-height:100vh}
+
+.header{position:sticky;top:0;z-index:100;background:var(--header);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.header-top{display:flex;align-items:center;gap:10px;padding:10px 14px}
+.back-btn{color:#fff;display:flex;align-items:center;cursor:pointer}
+.back-btn svg{width:22px;height:22px}
+.header-title{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;color:#fff;flex:1}
+.header-add{color:#fff;font-size:12px;font-weight:700;background:rgba(255,255,255,.2);padding:6px 12px;border-radius:99px;text-decoration:none}
+
+.seller-tabs{background:#fff;border-bottom:1px solid var(--border2);position:sticky;top:52px;z-index:90;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.seller-tabs-scroll{display:flex;overflow-x:auto;padding:0 6px}
+.stab{flex-shrink:0;font-size:12px;font-weight:600;color:var(--t3);padding:10px 12px;border-bottom:2px solid transparent;display:flex;align-items:center;gap:5px;white-space:nowrap;cursor:pointer;text-decoration:none}
+.stab.active{color:var(--green);border-bottom-color:var(--green);font-weight:700}
+.stab svg{width:14px;height:14px}
+
+/* SEARCH BAR */
+.search-bar{background:#fff;border-bottom:1px solid var(--border2);padding:8px 10px;position:sticky;top:96px;z-index:85}
+.search-input{width:100%;padding:9px 14px;border:1.5px solid var(--border);border-radius:99px;font-size:13px;font-family:'Mukta',sans-serif;outline:none;color:var(--t1)}
+.search-input:focus{border-color:var(--green)}
+
+.scroll-body{padding:10px 10px 80px}
+
+/* PRODUCT CARD */
+.prod-card{background:#fff;border-radius:var(--r8);margin-bottom:8px;box-shadow:var(--shadow);display:flex;gap:12px;padding:12px;animation:fadeUp .2s ease both;position:relative}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.prod-img-wrap{width:80px;height:80px;flex-shrink:0;background:var(--bg);border-radius:var(--r4);overflow:hidden;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--border2)}
+.prod-img-wrap img{width:90%;height:90%;object-fit:contain}
+.prod-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.prod-name{font-size:13px;font-weight:700;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.4}
+.prod-cat{font-size:11px;color:var(--t3)}
+.prod-price{font-size:15px;font-weight:800;color:var(--t1)}
+.prod-price span{font-size:11px;font-weight:500;color:var(--t3);text-decoration:line-through;margin-left:4px}
+
+/* STOCK BADGE */
+.stock-pill{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;margin-top:2px;width:fit-content}
+.stock-pill.ok  {background:var(--green-l);color:var(--green-d)}
+.stock-pill.low {background:#fff8e1;color:#7b5800}
+.stock-pill.out {background:#fce4ec;color:#c62828}
+
+/* INACTIVE OVERLAY */
+.prod-card.inactive{opacity:.6}
+.inactive-tag{position:absolute;top:10px;right:10px;background:#fce4ec;color:#c62828;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px}
+
+/* ACTION BTNS */
+.prod-actions{display:flex;gap:6px;margin-top:6px}
+.act-btn{font-size:11px;font-weight:700;padding:5px 10px;border-radius:99px;border:1.5px solid;cursor:pointer;font-family:'Mukta',sans-serif}
+.act-btn.edit   {color:var(--blue);border-color:var(--blue);background:#e3f2fd}
+.act-btn.deact  {color:var(--orange);border-color:var(--orange);background:#fff3e0}
+.act-btn.act    {color:var(--green-d);border-color:var(--green);background:var(--green-l)}
+.act-btn.del    {color:var(--red);border-color:var(--red);background:#fce4ec}
+.act-btn:active {opacity:.8}
+
+/* EMPTY */
+.empty-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center}
+.empty-ico{font-size:56px;margin-bottom:14px}
+.empty-t{font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;margin-bottom:6px}
+.empty-s{font-size:13px;color:var(--t3);margin-bottom:20px}
+.btn-add{display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;font-size:14px;font-weight:700;padding:12px 24px;border-radius:var(--r4);border:none;font-family:'Baloo 2',cursive}
+
+/* FAB */
+.fab{position:fixed;bottom:20px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(27,163,69,.4);cursor:pointer;border:none;z-index:200;transition:.2s}
+.fab:active{transform:scale(.92)}
+.fab svg{width:24px;height:24px}
+@media(min-width:481px){.fab{right:calc(50% - 240px + 20px)}}
+
+.skeleton{background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:var(--r4)}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+.toast-msg{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;z-index:9999;pointer-events:none;opacity:0;transition:opacity .25s;white-space:nowrap}
+.toast-msg.show{opacity:1}
+
+@media(min-width:481px){.page{box-shadow:0 0 40px rgba(0,0,0,.1)}}
+</style>
+</head>
+<body>
+<nav class="navbar"><div class="container"></div></nav>
+<div class="page-content">
+<div class="container">
+
+  <div class="seller-nav">
+    <a href="seller-dashboard.html">Dashboard</a>
+    <a href="seller-products.html" class="active">Products</a>
+    <a href="seller-orders.html">Orders</a>
+    <a href="seller-add-product.html">Add Product</a>
+<div class="page">
+
+  <header class="header">
+    <div class="header-top">
+      <button class="back-btn" onclick="location.href='seller-dashboard.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="header-title">My Products</div>
+      <a href="seller-add-product.html" class="header-add">+ Add</a>
+    </div>
+  </header>
+
+  <div class="seller-tabs">
+    <div class="seller-tabs-scroll">
+      <a class="stab" href="seller-dashboard.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard
+      </a>
+      <a class="stab active" href="seller-products.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>Products
+      </a>
+      <a class="stab" href="seller-orders.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>Orders
+      </a>
+      <a class="stab" href="seller-add-product.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Add Product
+      </a>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+    <div class="fw-700 fs-18">My Products <span id="prod-count" class="text-muted fw-500 fs-14"></span></div>
+    <a href="add-product.html" class="btn btn-primary btn-sm">+ Add Product</a>
+  <div class="search-bar">
+    <input class="search-input" id="search-input" type="text" placeholder="🔍 Search products..." oninput="renderProducts()">
+  </div>
+
+  <div class="card" style="overflow:hidden">
+    <div style="padding:12px 16px;display:flex;gap:12px;border-bottom:1px solid var(--border);flex-wrap:wrap">
+      <input type="text" id="prod-search" placeholder="Search products..." style="flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:13px;outline:none;min-width:160px">
+      <select id="prod-status-filter" style="padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:13px;outline:none" onchange="loadProducts()">
+        <option value="">All Products</option>
+        <option value="1">Active</option>
+        <option value="0">Inactive</option>
+      </select>
+  <div class="scroll-body">
+    <div id="skel-wrap">
+      <div style="background:#fff;border-radius:8px;margin-bottom:8px;padding:12px;display:flex;gap:12px;box-shadow:0 1px 4px rgba(0,0,0,.12)">
+        <div class="skeleton" style="width:80px;height:80px;flex-shrink:0;border-radius:4px"></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;padding-top:4px">
+          <div class="skeleton" style="height:13px;width:75%"></div>
+          <div class="skeleton" style="height:11px;width:40%"></div>
+          <div class="skeleton" style="height:16px;width:30%"></div>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:8px;margin-bottom:8px;padding:12px;display:flex;gap:12px;box-shadow:0 1px 4px rgba(0,0,0,.12)">
+        <div class="skeleton" style="width:80px;height:80px;flex-shrink:0;border-radius:4px"></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;padding-top:4px">
+          <div class="skeleton" style="height:13px;width:65%"></div>
+          <div class="skeleton" style="height:11px;width:35%"></div>
+          <div class="skeleton" style="height:16px;width:25%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="prod-list">
+      <div style="padding:40px;text-align:center"><div class="skeleton" style="height:60px;margin-bottom:10px"></div><div class="skeleton" style="height:60px"></div></div>
+    <div id="prod-list"></div>
+    <div id="empty-wrap" style="display:none">
+      <div class="empty-wrap">
+        <div class="empty-ico">📦</div>
+        <div class="empty-t">No Products Yet</div>
+        <div class="empty-s">Start adding products to your store.</div>
+        <a href="seller-add-product.html" class="btn-add">➕ Add First Product</a>
+      </div>
+    </div>
+  </div>
+
+  <button class="fab" onclick="location.href='seller-add-product.html'" title="Add Product">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+</div>
+</div>
+<nav class="bottom-nav"></nav>
+
+<div class="toast-msg" id="toast"></div>
+
+<script src="static/js/main.js"></script>
+<script>
+  if (!Auth.isLoggedIn()) window.location.href = 'login.html';
+  if (!Auth.isSeller()) window.location.href = 'account.html';
+  buildNavbar();
+
+  let allProducts = [];
+
+  async function loadProducts() {
+    try {
+      const res = await api('GET', '/seller/products');
+      allProducts = (res.data && res.data.products) ? res.data.products : [];
+      document.getElementById('prod-count').textContent = `(${allProducts.length})`;
+      renderProducts();
+    } catch(e) { document.getElementById('prod-list').innerHTML = '<p class="text-muted p-4">Failed to load.</p>'; }
+if (!Auth.isLoggedIn()) window.location.href = 'login.html';
+if (!Auth.isSeller()) window.location.href = 'seller-register.html';
+
+let _allProducts = [];
+const esc = s => String(s).replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+async function loadProducts() {
+  try {
+    const res = await api('GET', '/seller/products');
+    const data = res?.data ?? res;
+    _allProducts = data?.products || [];
+  } catch(e) {
+    _allProducts = [];
+  }
+  document.getElementById('skel-wrap').style.display = 'none';
+  renderProducts();
+}
+
+  function renderProducts() {
+    const q = document.getElementById('prod-search').value.toLowerCase();
+    const status = document.getElementById('prod-status-filter').value;
+    let prods = allProducts.filter(p => {
+      if (q && !p.name.toLowerCase().includes(q)) return false;
+      if (status !== '' && String(p.is_active ? 1 : 0) !== status) return false;
+      return true;
+    });
+    const list = document.getElementById('prod-list');
+    if (!prods.length) { list.innerHTML = `<div class="empty-state"><p>No products found</p><a href="seller-add-product.html" class="btn btn-primary">Add Your First Product</a></div>`; return; }
+    list.innerHTML = prods.map(p => {
+      const stockClass = p.stock === 0 ? 'out' : p.stock < 5 ? 'low' : 'ok';
+      const stockText = p.stock === 0 ? 'Out of Stock' : p.stock < 5 ? `Low (${p.stock})` : `In Stock (${p.stock})`;
+      return `
+        <div class="prod-table-row">
+          <img class="prod-img" src="${p.primary_image || 'https://placehold.co/52x52?text=Img'}" alt="${p.name}">
+          <div class="prod-info">
+            <div class="prod-name-cell">${p.name}</div>
+            <div class="prod-meta">${p.category_name || ''}</div>
+          </div>
+          <div style="text-align:center;min-width:80px">
+            <span class="stock-badge ${stockClass}">${stockText}</span>
+function renderProducts() {
+  const q    = (document.getElementById('search-input').value || '').toLowerCase();
+  const list = document.getElementById('prod-list');
+  const empt = document.getElementById('empty-wrap');
+
+  let prods = _allProducts;
+  if (q) prods = prods.filter(p => p.name.toLowerCase().includes(q));
+
+  if (!prods.length) {
+    list.innerHTML = '';
+    empt.style.display = 'block';
+    return;
+  }
+  empt.style.display = 'none';
+
+  list.innerHTML = prods.map((p, idx) => {
+    const pid       = p.id || p._id || '';
+    const stock     = p.stock || 0;
+    const stockCls  = stock === 0 ? 'out' : stock < 5 ? 'low' : 'ok';
+    const stockTxt  = stock === 0 ? 'Out of Stock' : stock < 5 ? `Low Stock (${stock})` : `In Stock (${stock})`;
+    const origPrice = p.price || 0;
+    const discPrice = p.discounted_price || p.price || 0;
+    const hasDisc   = p.discount_pct > 0;
+
+    return `
+      <div class="prod-card${p.is_active ? '' : ' inactive'}" style="animation-delay:${idx*.04}s">
+        ${!p.is_active ? '<div class="inactive-tag">Inactive</div>' : ''}
+        <div class="prod-img-wrap">
+          <img src="${esc(p.primary_image||'https://placehold.co/80x80/f1f3f6/878787?text=?')}"
+               onerror="this.src='https://placehold.co/80x80/f1f3f6/878787?text=?'"
+               loading="lazy">
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">${esc(p.name)}</div>
+          <div class="prod-cat">${esc(p.category_name||'')}</div>
+          <div class="prod-price">
+            ${formatPrice(discPrice)}
+            ${hasDisc ? `<span>${formatPrice(origPrice)}</span>` : ''}
+          </div>
+          <div class="prod-price-cell">${formatPrice(p.price)}</div>
+          <div style="display:flex;gap:6px">
+            <a href="seller-add-product.html?id=${p.id}" class="btn btn-outline btn-sm">Edit</a>
+            <button class="btn btn-ghost btn-sm" onclick="toggleProduct('${p.id}', ${p.is_active})" style="color:${p.is_active ? 'var(--warning)' : 'var(--success)'}">
+              ${p.is_active ? 'Deactivate' : 'Activate'}
+          <div class="stock-pill ${stockCls}">${stockTxt}</div>
+          <div class="prod-actions">
+            <button class="act-btn edit" onclick="location.href='seller-add-product.html?id=${esc(pid)}'">✏️ Edit</button>
+            <button class="act-btn ${p.is_active ? 'deact' : 'act'}" onclick="toggleProduct('${esc(pid)}',${p.is_active})">
+              ${p.is_active ? '⏸ Deactivate' : '▶ Activate'}
+            </button>
+            <button class="btn btn-ghost btn-sm text-danger" onclick="deleteProduct('${p.id}')">Delete</button>
+            <button class="act-btn del" onclick="deleteProduct('${esc(pid)}')">🗑</button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+        </div>
+      </div>`;
+  }).join('');
+}
+
+  async function toggleProduct(id, isActive) {
+    try {
+      await api('PUT', `/seller/products/${id}`, { is_active: !isActive });
+      toast(isActive ? 'Product deactivated' : 'Product activated', 'success');
+      loadProducts();
+    } catch(e) { toast(e.message, 'error'); }
+async function toggleProduct(pid, isActive) {
+  try {
+    await api('PUT', `/seller/products/${pid}`, { is_active: !isActive });
+    showToast(isActive ? 'Product deactivated' : 'Product activated ✓');
+    loadProducts();
+  } catch(e) {
+    showToast('Failed: ' + (e.message || 'error'));
+  }
+}
+
+  async function deleteProduct(id) {
+    if (!confirm('Delete this product? This cannot be undone.')) return;
+    try { await api('DELETE', `/seller/products/${id}`); toast('Product deleted'); loadProducts(); }
+    catch(e) { toast(e.message, 'error'); }
+async function deleteProduct(pid) {
+  if (!confirm('Delete this product? This cannot be undone.')) return;
+  try {
+    await api('DELETE', `/seller/products/${pid}`);
+    showToast('Product deleted');
+    loadProducts();
+  } catch(e) {
+    showToast('Failed to delete');
+  }
+}
+
+  document.getElementById('prod-search').addEventListener('input', renderProducts);
+  loadProducts();
+loadProducts();
+</script>
+</body>
+</html>

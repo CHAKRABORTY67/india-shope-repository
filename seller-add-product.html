@@ -1,0 +1,565 @@
+button{cursor:pointer;border:none;background:none}
+.page{max-width:480px;margin:0 auto;background:var(--bg);min-height:100vh}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:100;background:var(--green);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.header-top{display:flex;align-items:center;gap:10px;padding:10px 14px}
+.back-btn{color:#fff;display:flex;align-items:center}
+.back-btn svg{width:22px;height:22px}
+.header-title{font-family:'Baloo 2',cursive;font-size:19px;font-weight:800;color:#fff;flex:1}
+
+/* TABS */
+.seller-tabs{background:#fff;border-bottom:1px solid var(--border2);position:sticky;top:52px;z-index:90;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.seller-tabs-scroll{display:flex;overflow-x:auto;padding:0 6px}
+.stab{flex-shrink:0;font-size:12px;font-weight:600;color:var(--t3);padding:10px 12px;border-bottom:2px solid transparent;display:flex;align-items:center;gap:5px;white-space:nowrap;cursor:pointer}
+.stab.active{color:var(--green);border-bottom-color:var(--green);font-weight:700}
+
+/* BODY */
+.scroll-body{padding:12px 10px 80px}
+
+/* CARD */
+.card{background:#fff;border-radius:var(--r8);margin-bottom:10px;box-shadow:var(--shadow);padding:14px}
+.section-heading{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:12px;padding-bottom:8px;border-bottom:1.5px solid var(--border2)}
+
+/* FORM */
+.input-wrap{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.input-wrap label{font-size:12px;font-weight:700;color:var(--t2)}
+.input-wrap input,.input-wrap select,.input-wrap textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--r4);font-size:13px;color:var(--t1);background:#fff;transition:border-color .15s}
+@@ -57,7 +52,6 @@
+.checkbox-row input[type="checkbox"]{width:16px;height:16px;accent-color:var(--green);cursor:pointer}
+.checkbox-row label{font-size:13px;color:var(--t1);cursor:pointer}
+
+/* UPLOAD ZONE */
+.upload-zone{border:2px dashed var(--border);border-radius:var(--r8);padding:24px 16px;text-align:center;cursor:pointer;position:relative;background:var(--bg);transition:border-color .2s,background .2s}
+.upload-zone:hover,.upload-zone.drag-over{border-color:var(--green);background:var(--green-l)}
+.upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+@@ -66,7 +60,6 @@
+.upload-zone p span{color:var(--green);font-weight:700}
+.upload-zone small{font-size:11px;color:var(--t3)}
+
+/* PREVIEW GRID */
+.preview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.preview-item{position:relative;border-radius:var(--r4);overflow:hidden;border:1.5px solid var(--border2);aspect-ratio:1;background:var(--bg)}
+.preview-item img{width:100%;height:100%;object-fit:cover;display:block}
+@@ -79,29 +72,29 @@
+.prev-btn.danger{color:#ffb3b3}
+.primary-flag{position:absolute;top:4px;left:4px;background:var(--green);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:2px}
+
+/* TIP BOX */
+.tip-box{background:var(--warning-l);border-left:3px solid var(--warning);padding:10px 12px;border-radius:var(--r4);font-size:12px;color:var(--warning-t);margin-top:10px;line-height:1.7}
+
+/* PRICE PREVIEW */
+.price-preview{background:var(--bg);border-radius:var(--r4);padding:12px;margin-top:10px;font-size:13px}
+.price-row{display:flex;justify-content:space-between;padding:4px 0;color:var(--t2)}
+.price-row.total{border-top:1.5px solid var(--border);margin-top:6px;padding-top:10px;font-weight:800;color:var(--t1)}
+.price-row.total .val{color:var(--green);font-size:16px}
+
+/* CHECKLIST */
+.checklist{font-size:13px;line-height:2.1;color:var(--t3)}
+.checklist div.done{color:var(--green-d);font-weight:600}
+
+/* PHOTO GUIDELINES */
+.guidelines{font-size:12px;color:var(--t2);line-height:2}
+
+/* SUBMIT BTN */
+.btn-submit{display:block;width:100%;padding:14px;background:var(--green);color:#fff;font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;border-radius:var(--r4);border:none;cursor:pointer;letter-spacing:.3px;transition:background .15s,transform .1s;margin-top:4px}
+.btn-submit:hover{background:var(--green-d)}
+.btn-submit:active{transform:scale(.98)}
+.btn-submit:disabled{background:var(--t4);cursor:not-allowed}
+
+/* TOAST */
+/* Loading overlay for edit mode */
+.loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,.85);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.loading-overlay .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite}
+.loading-overlay p{font-size:14px;font-weight:600;color:var(--t2)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.toast-msg{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#333;color:#fff;font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;z-index:9999;pointer-events:none;opacity:0;transition:opacity .25s;white-space:nowrap}
+.toast-msg.show{opacity:1}
+.toast-msg.success{background:var(--green-d)}
+@@ -118,7 +111,7 @@
+      <button class="back-btn" onclick="location.href='seller-products.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="header-title">Add Product</div>
+      <div class="header-title" id="pageTitle">Add Product</div>
+    </div>
+  </header>
+
+@@ -141,7 +134,6 @@
+
+  <div class="scroll-body">
+
+    <!-- Product Info -->
+    <div class="card">
+      <div class="section-heading">Product Information</div>
+      <div class="input-wrap">
+@@ -172,7 +164,6 @@
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="card">
+      <div class="section-heading">Pricing & Inventory</div>
+      <div class="grid-2">
+@@ -189,30 +180,27 @@
+        <label>Stock Quantity *</label>
+        <input type="number" id="stock" placeholder="0" min="0" oninput="updatePreview()">
+      </div>
+      <!-- Price Calculator -->
+      <div class="price-preview">
+        <div class="price-row"><span>MRP</span><span class="val" id="prev-mrp">₹0</span></div>
+        <div class="price-row"><span>Discount</span><span class="val" style="color:var(--red)" id="prev-disc">— 0%</span></div>
+        <div class="price-row total"><span>Selling Price</span><span class="val" id="prev-final">₹0</span></div>
+      </div>
+    </div>
+
+    <!-- Images -->
+    <div class="card">
+      <div class="section-heading">Product Photos</div>
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/gif" multiple>
+        <div class="upload-zone-icon">📷</div>
+        <p>Tap to add photos or <span>browse</span></p>
+        <small>JPG, PNG, WEBP · Max 5MB each · Up to 5 images</small>
+        <small id="uploadHint">JPG, PNG, WEBP · Max 5MB each · Up to 5 images</small>
+      </div>
+      <div class="preview-grid" id="previewGrid"></div>
+      <div class="tip-box" id="imgTip" style="display:none">
+        💡 <strong>First photo = main display image.</strong> Tap any photo to set as primary or remove it.
+      </div>
+    </div>
+
+    <!-- Checklist -->
+    <div class="card">
+      <div class="section-heading">Checklist</div>
+      <div class="checklist" id="checklist">
+@@ -224,7 +212,6 @@
+      </div>
+    </div>
+
+    <!-- Photo Guidelines -->
+    <div class="card">
+      <div class="section-heading">Photo Guidelines</div>
+      <div class="guidelines">
+@@ -241,37 +228,101 @@
+  </div>
+</div>
+
+<!-- Loading overlay shown while fetching product in edit mode -->
+<div class="loading-overlay" id="loadingOverlay" style="display:none">
+  <div class="spinner"></div>
+  <p>Loading product...</p>
+</div>
+
+<div class="toast-msg" id="toast"></div>
+
+<script src="static/js/main.js"></script>
+<script>
+if (!Auth.isLoggedIn()) window.location.href = 'login.html';
+if (!Auth.isAdmin() && !Auth.isSeller()) window.location.href = 'account.html';
+
+// ── Edit mode detection ──────────────────────────────────────────────────────
+const _params = new URLSearchParams(location.search);
+const EDIT_ID = _params.get('id') || '';
+const IS_EDIT = !!EDIT_ID;
+
+let uploadedImages = [];
+const MAX_IMAGES = 5;
+const MAX_IMAGES   = 5;
+
+function showToast(msg, type='') {
+// ── Toast ────────────────────────────────────────────────────────────────────
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast-msg show' + (type ? ' '+type : '');
+  t.className = 'toast-msg show' + (type ? ' ' + type : '');
+  clearTimeout(t._tid);
+  t._tid = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+async function loadCategories() {
+// ── Load categories, optionally pre-select one ───────────────────────────────
+async function loadCategories(selectedId = '') {
+  try {
+    const data = await api('GET', '/categories');
+    const sel = document.getElementById('category_id');
+    const sel  = document.getElementById('category_id');
+    (data.data || []).forEach(cat => {
+      const o = document.createElement('option');
+      o.value = cat.id;
+      o.textContent = (cat.emoji || '') + ' ' + cat.name;
+      if (selectedId && cat.id === selectedId) o.selected = true;
+      sel.appendChild(o);
+    });
+  } catch(e) { showToast('Failed to load categories', 'error'); }
+  } catch (e) {
+    showToast('Failed to load categories', 'error');
+  }
+}
+
+// ── Populate form with existing product data ─────────────────────────────────
+async function loadProductForEdit() {
+  document.getElementById('loadingOverlay').style.display = 'flex';
+  try {
+    const res  = await api('GET', '/seller/products/' + EDIT_ID);
+    const prod = res.data || res;
+
+    // Fill text fields
+    document.getElementById('name').value         = prod.name         || '';
+    document.getElementById('brand').value        = prod.brand        || '';
+    document.getElementById('description').value  = prod.description  || '';
+    document.getElementById('price').value        = prod.price        || '';
+    document.getElementById('discount_pct').value = prod.discount_pct || 0;
+    document.getElementById('stock').value        = prod.stock        || 0;
+    document.getElementById('sku').value          = prod.sku          || '';
+    document.getElementById('is_featured').checked = !!prod.is_featured;
+
+    // Pre-select category
+    // category_id may live at prod.category_id or prod.category.id
+    const catId = prod.category_id || (prod.category && prod.category.id) || '';
+    if (catId) {
+      await loadCategories(catId);
+    } else {
+      await loadCategories();
+    }
+
+    // Load existing images into uploadedImages
+    const imgs = prod.images || [];
+    uploadedImages = imgs.map((img, idx) => ({
+      url:        img.url,
+      // existing images stored in Cloudinary have public_id; fallback to url as key
+      public_id:  img.public_id || ('existing-' + idx),
+      is_primary: img.is_primary || idx === 0,
+      existing:   true,   // flag: already on Cloudinary, don't re-upload
+    }));
+
+    renderPreviews();
+    updatePreview();
+  } catch (e) {
+    showToast('Failed to load product: ' + (e.message || 'error'), 'error');
+    // Still load categories so the form is usable
+    await loadCategories();
+  } finally {
+    document.getElementById('loadingOverlay').style.display = 'none';
+  }
+}
+
+// ── Price preview & checklist ─────────────────────────────────────────────────
+function fmt(n) { return '₹' + Number(n).toLocaleString('en-IN'); }
+
+function updatePreview() {
+@@ -286,25 +337,33 @@
+  const catId = document.getElementById('category_id').value;
+  const stock = parseInt(document.getElementById('stock').value) || 0;
+
+  chk('chk-name',  !!name,  'Product name');
+  chk('chk-cat',   !!catId, 'Category selected');
+  chk('chk-name',  !!name,   'Product name');
+  chk('chk-cat',   !!catId,  'Category selected');
+  chk('chk-price', price > 0, 'Price entered');
+  chk('chk-stock', stock > 0, 'Stock quantity');
+  chk('chk-img',   uploadedImages.length > 0, `At least 1 photo (${uploadedImages.length}/${MAX_IMAGES})`);
+  chk('chk-stock', stock >= 0, 'Stock quantity');
+  chk('chk-img',   uploadedImages.length > 0,
+      `At least 1 photo (${uploadedImages.length}/${MAX_IMAGES})`);
+}
+
+function chk(id, ok, label) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.className = ok ? 'done' : '';
+  el.className   = ok ? 'done' : '';
+  el.textContent = (ok ? '✅ ' : '○ ') + label;
+}
+
+// ── Drag-and-drop & file input ────────────────────────────────────────────────
+const zone = document.getElementById('uploadZone');
+zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('drag-over'); });
+zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('drag-over'); handleFiles([...e.dataTransfer.files]); });
+document.getElementById('fileInput').addEventListener('change', e => { handleFiles([...e.target.files]); e.target.value = ''; });
+zone.addEventListener('drop', e => {
+  e.preventDefault(); zone.classList.remove('drag-over');
+  handleFiles([...e.dataTransfer.files]);
+});
+document.getElementById('fileInput').addEventListener('change', e => {
+  handleFiles([...e.target.files]);
+  e.target.value = '';
+});
+
+async function handleFiles(files) {
+  const imgs = files.filter(f => f.type.startsWith('image/'));
+@@ -314,71 +373,111 @@
+  const toUpload = imgs.slice(0, slots);
+  if (imgs.length > slots) showToast(`Only ${slots} more image(s) can be added`, 'error');
+  for (const f of toUpload) {
+    if (f.size > 5 * 1024 * 1024) { showToast('"' + f.name + '" exceeds 5MB limit', 'error'); continue; }
+    if (f.size > 5 * 1024 * 1024) {
+      showToast('"' + f.name + '" exceeds 5MB limit', 'error');
+      continue;
+    }
+    await uploadSingle(f);
+  }
+}
+
+async function uploadSingle(file) {
+  if (uploadedImages.length >= MAX_IMAGES) return showToast(`Maximum ${MAX_IMAGES} images allowed`, 'error');
+  const tid = 'up-' + Date.now();
+  const grid = document.getElementById('previewGrid');
+  const el = document.createElement('div');
+  el.className = 'preview-item uploading'; el.id = tid;
+  if (uploadedImages.length >= MAX_IMAGES)
+    return showToast(`Maximum ${MAX_IMAGES} images allowed`, 'error');
+
+  const tid      = 'up-' + Date.now();
+  const grid     = document.getElementById('previewGrid');
+  const el       = document.createElement('div');
+  el.className   = 'preview-item uploading';
+  el.id          = tid;
+  const localUrl = URL.createObjectURL(file);
+  el.innerHTML = `<img src="${localUrl}" alt="uploading"><div class="preview-progress"><div class="preview-progress-bar" id="bar-${tid}"></div></div>`;
+  el.innerHTML   = `<img src="${localUrl}" alt="uploading">
+    <div class="preview-progress"><div class="preview-progress-bar" id="bar-${tid}"></div></div>`;
+  grid.appendChild(el);
+  document.getElementById('imgTip').style.display = 'block';
+
+  let p = 0;
+  const bar = document.getElementById('bar-' + tid);
+  const tick = setInterval(() => { p = Math.min(p + Math.random()*18, 85); if(bar) bar.style.width = p+'%'; }, 180);
+  let p    = 0;
+  const bar  = document.getElementById('bar-' + tid);
+  const tick = setInterval(() => {
+    p = Math.min(p + Math.random() * 18, 85);
+    if (bar) bar.style.width = p + '%';
+  }, 180);
+
+  try {
+    const fd = new FormData(); fd.append('image', file);
+    const fd = new FormData();
+    fd.append('image', file);
+    const res  = await fetch(BASE_URL + '/seller/upload-image', {
+      method: 'POST', headers: { Authorization: 'Bearer ' + Auth.token() }, body: fd,
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + Auth.token() },
+      body: fd,
+    });
+    const data = await res.json();
+    clearInterval(tick);
+    if (!data.success) { el.remove(); URL.revokeObjectURL(localUrl); return showToast(data.message || 'Upload failed', 'error'); }
+    if(bar) bar.style.width = '100%';
+
+    if (!data.success) {
+      el.remove();
+      URL.revokeObjectURL(localUrl);
+      return showToast(data.message || 'Upload failed', 'error');
+    }
+
+    if (bar) bar.style.width = '100%';
+    el.classList.remove('uploading');
+    URL.revokeObjectURL(localUrl);
+
+    const isFirst = uploadedImages.length === 0;
+    uploadedImages.push({ url: data.data.url, public_id: data.data.public_id, is_primary: isFirst });
+    uploadedImages.push({
+      url:       data.data.url,
+      public_id: data.data.public_id,
+      is_primary: isFirst,
+      existing:  false,
+    });
+    renderPreviews();
+    updatePreview();
+    showToast('Photo uploaded!', 'success');
+  } catch(err) {
+    clearInterval(tick); el.remove();
+  } catch (err) {
+    clearInterval(tick);
+    el.remove();
+    showToast('Network error during upload', 'error');
+  }
+}
+
+// ── Render image previews ─────────────────────────────────────────────────────
+function renderPreviews() {
+  const grid = document.getElementById('previewGrid');
+  [...grid.querySelectorAll('.preview-item:not(.uploading)')].forEach(e => e.remove());
+  uploadedImages.forEach((img, idx) => {
+    const el = document.createElement('div');
+
+  uploadedImages.forEach(img => {
+    const el     = document.createElement('div');
+    el.className = 'preview-item';
+    // Escape public_id for use in inline onclick (could contain slashes)
+    const pidEsc = img.public_id.replace(/'/g, "\\'");
+    el.innerHTML = `
+      <img src="${img.url}" alt="product photo">
+      ${img.is_primary ? '<div class="primary-flag">PRIMARY</div>' : ''}
+      <div class="preview-overlay">
+        ${!img.is_primary ? `<button class="prev-btn" onclick="setPrimary('${img.public_id}')">⭐ Primary</button>` : ''}
+        <button class="prev-btn danger" onclick="removeImg('${img.public_id}')">🗑 Remove</button>
+        ${!img.is_primary
+          ? `<button class="prev-btn" onclick="setPrimary('${pidEsc}')">⭐ Primary</button>`
+          : ''}
+        <button class="prev-btn danger" onclick="removeImg('${pidEsc}')">🗑 Remove</button>
+      </div>`;
+    grid.appendChild(el);
+  });
+  document.getElementById('imgTip').style.display = uploadedImages.length ? 'block' : 'none';
+
+  document.getElementById('imgTip').style.display =
+    uploadedImages.length ? 'block' : 'none';
+
+  const fileInput = document.getElementById('fileInput');
+  const hint      = document.getElementById('uploadHint');
+  if (uploadedImages.length >= MAX_IMAGES) {
+    zone.style.opacity = '.5'; zone.style.pointerEvents = 'none'; fileInput.disabled = true;
+    document.querySelector('.upload-zone small').textContent = `✅ Maximum ${MAX_IMAGES} images uploaded`;
+    zone.style.opacity      = '.5';
+    zone.style.pointerEvents = 'none';
+    fileInput.disabled      = true;
+    hint.textContent        = `✅ Maximum ${MAX_IMAGES} images uploaded`;
+  } else {
+    zone.style.opacity = ''; zone.style.pointerEvents = ''; fileInput.disabled = false;
+    document.querySelector('.upload-zone small').textContent =
+    zone.style.opacity      = '';
+    zone.style.pointerEvents = '';
+    fileInput.disabled      = false;
+    hint.textContent        =
+      `JPG, PNG, WEBP · Max 5MB each · ${MAX_IMAGES - uploadedImages.length} slot(s) remaining`;
+  }
+  updatePreview();
+@@ -390,18 +489,29 @@
+}
+
+async function removeImg(pid) {
+  const removed = uploadedImages.find(i => i.public_id === pid);
+  uploadedImages = uploadedImages.filter(i => i.public_id !== pid);
+  if (uploadedImages.length && !uploadedImages.some(i => i.is_primary)) uploadedImages[0].is_primary = true;
+  if (uploadedImages.length && !uploadedImages.some(i => i.is_primary)) {
+    uploadedImages[0].is_primary = true;
+  }
+  renderPreviews();
+  try {
+    await fetch(BASE_URL + '/seller/delete-image', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + Auth.token() },
+      body: JSON.stringify({ public_id: pid }),
+    });
+  } catch {}
+
+  // Only delete from Cloudinary if it's a real public_id (not our fallback key)
+  if (removed && !removed.public_id.startsWith('existing-')) {
+    try {
+      await fetch(BASE_URL + '/seller/delete-image', {
+        method:  'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization:  'Bearer ' + Auth.token(),
+        },
+        body: JSON.stringify({ public_id: removed.public_id }),
+      });
+    } catch {}
+  }
+}
+
+// ── Submit: create or update ──────────────────────────────────────────────────
+async function submitProduct() {
+  const name         = document.getElementById('name').value.trim();
+  const category_id  = document.getElementById('category_id').value;
+@@ -413,42 +523,72 @@
+  const sku          = document.getElementById('sku').value.trim();
+  const is_featured  = document.getElementById('is_featured').checked;
+
+  if (!name)              return showToast('Product name is required', 'error');
+  if (!category_id)       return showToast('Please select a category', 'error');
+  if (!price || price<=0) return showToast('Enter a valid price', 'error');
+  if (stock < 0)          return showToast('Stock cannot be negative', 'error');
+  if (!name)               return showToast('Product name is required', 'error');
+  if (!category_id)        return showToast('Please select a category', 'error');
+  if (!price || price <= 0) return showToast('Enter a valid price', 'error');
+  if (stock < 0)           return showToast('Stock cannot be negative', 'error');
+  if (!uploadedImages.length) return showToast('Please upload at least one photo', 'error');
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = 'Submitting...';
+  btn.disabled    = true;
+  btn.textContent = IS_EDIT ? 'Saving...' : 'Submitting...';
+
+  try {
+    const payload = {
+      name, category_id, brand, description,
+      price, discount_pct, stock, is_featured,
+      images: uploadedImages.map(i => ({ url: i.url, alt_text: name, is_primary: i.is_primary })),
+      images: uploadedImages.map(i => ({
+        url:        i.url,
+        public_id:  i.public_id,
+        alt_text:   name,
+        is_primary: i.is_primary,
+      })),
+    };
+    if (sku) payload.sku = sku;
+    await api('POST', '/seller/products', payload);
+    showToast('Product added successfully! 🎉', 'success');
+    setTimeout(() => {
+      ['name','brand','price','discount_pct','stock','sku','description'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('category_id').value = '';
+      document.getElementById('is_featured').checked = false;
+      document.getElementById('previewGrid').innerHTML = '';
+      document.getElementById('imgTip').style.display = 'none';
+      uploadedImages = [];
+      updatePreview();
+    }, 500);
+  } catch(e) {
+    showToast(e.message || 'Failed to add product', 'error');
+
+    if (IS_EDIT) {
+      // ── UPDATE existing product ──
+      await api('PUT', '/seller/products/' + EDIT_ID, payload);
+      showToast('Product updated successfully! ✅', 'success');
+      setTimeout(() => location.href = 'seller-products.html', 1200);
+    } else {
+      // ── CREATE new product ──
+      await api('POST', '/seller/products', payload);
+      showToast('Product added successfully! 🎉', 'success');
+      setTimeout(() => {
+        ['name','brand','price','discount_pct','stock','sku','description']
+          .forEach(id => { document.getElementById(id).value = ''; });
+        document.getElementById('category_id').value   = '';
+        document.getElementById('is_featured').checked = false;
+        document.getElementById('previewGrid').innerHTML = '';
+        document.getElementById('imgTip').style.display  = 'none';
+        uploadedImages = [];
+        updatePreview();
+        btn.disabled    = false;
+        btn.textContent = '+ Add Product';
+      }, 500);
+      return; // early return so finally block doesn't re-enable too soon
+    }
+  } catch (e) {
+    showToast(e.message || 'Failed to save product', 'error');
+  } finally {
+    btn.disabled = false; btn.textContent = '+ Add Product';
+    btn.disabled    = false;
+    btn.textContent = IS_EDIT ? '💾 Save Changes' : '+ Add Product';
+  }
+}
+
+loadCategories();
+updatePreview();
+// ── Init ──────────────────────────────────────────────────────────────────────
+(async function init() {
+  if (IS_EDIT) {
+    document.getElementById('pageTitle').textContent  = 'Edit Product';
+    document.getElementById('submitBtn').textContent  = '💾 Save Changes';
+    // loadProductForEdit() internally calls loadCategories() with the right selectedId
+    await loadProductForEdit();
+  } else {
+    await loadCategories();
+    updatePreview();
+  }
+})();
+</script>
+</body>
+</html>

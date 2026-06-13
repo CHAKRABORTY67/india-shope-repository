@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Become a Seller — indiaShop</title>
+<link rel="stylesheet" href="static/css/style.css">
+<link rel="stylesheet" href="static/css/nav.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+.seller-hero { background: linear-gradient(135deg, #2874f0, #1a5dc8); border-radius: var(--radius); padding: 32px; color: #fff; text-align: center; margin-bottom: 24px; }
+.seller-hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+.seller-hero p { font-size: 14px; opacity: 0.85; max-width: 400px; margin: 0 auto 20px; }
+.benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+.benefit-card { background: var(--surface); border-radius: var(--radius); padding: 18px; text-align: center; box-shadow: var(--shadow-sm); }
+.benefit-icon { font-size: 28px; margin-bottom: 8px; }
+.benefit-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.benefit-card p { font-size: 12px; color: var(--text3); }
+.form-card { background: var(--surface); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-sm); }
+.form-section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text3); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+@media(max-width:600px){ .benefits{grid-template-columns:1fr 1fr;} }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+::-webkit-scrollbar{display:none}*{scrollbar-width:none}
+:root{
+  --green:#1ba345;--green-d:#147a34;--green-l:#e8f8ee;
+  --blue:#1565c0;--blue-l:#e3f2fd;
+  --orange:#ff6600;--red:#e53935;
+  --bg:#f1f3f6;
+  --border:#e0e0e0;--border2:#f0f0f0;
+  --t1:#212121;--t2:#555;--t3:#878787;--t4:#aaa;
+  --surface:#fff;
+  --r4:4px;--r8:8px;
+  --shadow:0 1px 4px rgba(0,0,0,.12);
+}
+html,body{font-family:'Mukta',sans-serif;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;font-size:14px}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font-family:'Mukta',sans-serif;outline:none}
+button{cursor:pointer;border:none;background:none}
+.page{max-width:480px;margin:0 auto;background:var(--bg);min-height:100vh}
+
+/* HEADER */
+.header{background:var(--green);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.header-top{display:flex;align-items:center;gap:10px;padding:10px 14px}
+.back-btn{color:#fff;display:flex;align-items:center}
+.back-btn svg{width:22px;height:22px}
+.header-title{font-family:'Baloo 2',cursive;font-size:19px;font-weight:800;color:#fff;flex:1}
+
+/* HERO */
+.hero{background:var(--green);padding:20px 16px 28px;text-align:center}
+.hero-title{font-family:'Baloo 2',cursive;font-size:24px;font-weight:800;color:#fff;margin-bottom:6px}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.85);margin-bottom:16px;line-height:1.6}
+.hero-tags{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.hero-tag{font-size:12px;font-weight:700;color:rgba(255,255,255,.9);display:flex;align-items:center;gap:4px}
+
+/* BENEFITS */
+.benefits-wrap{padding:12px 10px 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.benefit-card{background:#fff;border-radius:var(--r8);padding:14px 10px;text-align:center;box-shadow:var(--shadow)}
+.benefit-icon{font-size:24px;margin-bottom:6px}
+.benefit-card h4{font-size:12px;font-weight:700;margin-bottom:3px;color:var(--t1)}
+.benefit-card p{font-size:11px;color:var(--t3);line-height:1.4}
+
+/* BODY */
+.scroll-body{padding:12px 10px 80px}
+
+/* CARD */
+.card{background:#fff;border-radius:var(--r8);margin-bottom:10px;box-shadow:var(--shadow);padding:14px}
+.section-heading{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:12px;padding-bottom:8px;border-bottom:1.5px solid var(--border2)}
+
+/* FORM */
+.input-wrap{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.input-wrap label{font-size:12px;font-weight:700;color:var(--t2)}
+.input-wrap input,.input-wrap select,.input-wrap textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--r4);font-size:13px;color:var(--t1);background:#fff;transition:border-color .15s}
+.input-wrap input:focus,.input-wrap select:focus,.input-wrap textarea:focus{border-color:var(--green)}
+.input-wrap textarea{resize:vertical;min-height:70px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* ALREADY SELLER */
+.already-card{background:#fff;border-radius:var(--r8);box-shadow:var(--shadow);padding:32px 20px;text-align:center;margin-bottom:10px}
+.already-icon{font-size:44px;margin-bottom:14px}
+.already-title{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;margin-bottom:6px}
+.already-sub{font-size:13px;color:var(--t3);margin-bottom:20px}
+.btn-dash{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;padding:12px 28px;border-radius:var(--r4);border:none;cursor:pointer}
+
+/* INFO BOX */
+.info-box{background:var(--green-l);border-left:3px solid var(--green);padding:12px 14px;border-radius:var(--r4);font-size:12px;color:var(--green-d);line-height:1.8;margin-bottom:12px}
+
+/* SUBMIT */
+.btn-submit{display:block;width:100%;padding:14px;background:var(--green);color:#fff;font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;border-radius:var(--r4);border:none;cursor:pointer;letter-spacing:.3px;transition:background .15s,transform .1s}
+.btn-submit:hover{background:var(--green-d)}
+.btn-submit:active{transform:scale(.98)}
+.btn-submit:disabled{background:var(--t4);cursor:not-allowed}
+
+/* TOAST */
+.toast-msg{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#333;color:#fff;font-size:13px;font-weight:600;padding:10px 20px;border-radius:99px;z-index:9999;pointer-events:none;opacity:0;transition:opacity .25s;white-space:nowrap}
+.toast-msg.show{opacity:1}
+.toast-msg.success{background:var(--green-d)}
+.toast-msg.error{background:var(--red)}
+
+@media(min-width:481px){.page{box-shadow:0 0 40px rgba(0,0,0,.1)}}
+</style>
+</head>
+<body>
+<nav class="navbar"><div class="container"></div></nav>
+<div class="page-content">
+<div class="container" style="max-width:700px">
+
+  <div class="seller-hero">
+    <h1>Sell on indiaShop</h1>
+    <p>Join thousands of sellers and grow your business with India's trusted marketplace.</p>
+    <div style="display:flex;gap:20px;justify-content:center;font-size:13px;opacity:0.9">
+      <span>✓ Free Registration</span>
+      <span>✓ Crores of Customers</span>
+      <span>✓ Easy Payments</span>
+<div class="page">
+
+  <!-- Hero (no separate sticky header — hero is the top) -->
+  <div class="hero">
+    <div class="hero-title">Sell on indiaShop</div>
+    <div class="hero-sub">Join thousands of sellers and grow your business with India's trusted marketplace.</div>
+    <div class="hero-tags">
+      <div class="hero-tag">✓ Free Registration</div>
+      <div class="hero-tag">✓ Crores of Customers</div>
+      <div class="hero-tag">✓ Easy Payments</div>
+    </div>
+  </div>
+
+  <div class="benefits">
+    <div class="benefit-card"><div class="benefit-icon">🚀</div><h4>Reach Millions</h4><p>Access crores of buyers across India</p></div>
+    <div class="benefit-card"><div class="benefit-icon">💰</div><h4>Easy Payments</h4><p>Get paid directly to your bank</p></div>
+    <div class="benefit-card"><div class="benefit-icon">📦</div><h4>Seller Tools</h4><p>Manage orders, products & analytics</p></div>
+  <!-- Benefits -->
+  <div class="benefits-wrap">
+    <div class="benefit-card">
+      <div class="benefit-icon">🚀</div>
+      <h4>Reach Millions</h4>
+      <p>Access crores of buyers across India</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">💰</div>
+      <h4>Easy Payments</h4>
+      <p>Get paid directly to your bank</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">📦</div>
+      <h4>Seller Tools</h4>
+      <p>Manage orders, products & analytics</p>
+    </div>
+  </div>
+
+  <div id="already-seller" style="display:none" class="card p-6 text-center mb-4">
+    <div style="font-size:40px;margin-bottom:12px">🎉</div>
+    <div class="fw-700 fs-18 mb-2">You're already a seller!</div>
+    <p class="text-muted mb-4">Go to your dashboard to manage your store.</p>
+    <a href="seller-dashboard.html" class="btn btn-primary btn-lg">Go to Dashboard</a>
+  </div>
+  <div class="scroll-body">
+
+  <div class="form-card" id="seller-form">
+    <div style="font-size:18px;font-weight:700;margin-bottom:20px">Create Seller Account</div>
+
+    <div class="form-section-title">Business Information</div>
+    <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px">
+      <div class="input-wrap"><label>Business / Store Name</label><input type="text" id="biz-name" placeholder="Your store name"></div>
+      <div class="input-wrap"><label>Business Type</label>
+        <select id="biz-type">
+          <option value="individual">Individual / Sole Proprietor</option>
+          <option value="partnership">Partnership</option>
+          <option value="company">Private / Public Company</option>
+          <option value="llp">LLP</option>
+        </select>
+    <!-- Already seller block (hidden by default) -->
+    <div id="already-seller" style="display:none">
+      <div class="already-card">
+        <div class="already-icon">🎉</div>
+        <div class="already-title">You're already a seller!</div>
+        <div class="already-sub">Go to your dashboard to manage your store.</div>
+        <button class="btn-dash" onclick="location.href='seller-dashboard.html'">Go to Dashboard →</button>
+      </div>
+      <div class="input-wrap"><label>Business Description</label><textarea id="biz-desc" rows="3" placeholder="Tell buyers about your business..."></textarea></div>
+    </div>
+
+    <div class="form-section-title">Contact & Location</div>
+    <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px">
+      <div class="grid-2">
+        <div class="input-wrap"><label>City</label><input type="text" id="city" placeholder="City"></div>
+        <div class="input-wrap"><label>State</label><input type="text" id="state" placeholder="State"></div>
+    <!-- Registration form -->
+    <div id="seller-form">
+
+      <div class="card">
+        <div class="section-heading">Business Information</div>
+        <div class="input-wrap">
+          <label>Business / Store Name *</label>
+          <input type="text" id="biz-name" placeholder="Your store name">
+        </div>
+        <div class="input-wrap">
+          <label>Business Type *</label>
+          <select id="biz-type">
+            <option value="individual">Individual / Sole Proprietor</option>
+            <option value="partnership">Partnership</option>
+            <option value="company">Private / Public Company</option>
+            <option value="llp">LLP</option>
+          </select>
+        </div>
+        <div class="input-wrap">
+          <label>Business Description</label>
+          <textarea id="biz-desc" placeholder="Tell buyers about your business..."></textarea>
+        </div>
+      </div>
+      <div class="input-wrap"><label>Pincode</label><input type="text" id="pincode" placeholder="6-digit pincode" maxlength="6"></div>
+    </div>
+
+    <div class="form-section-title">Tax Information</div>
+    <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:24px">
+      <div class="input-wrap"><label>GSTIN (optional)</label><input type="text" id="gstin" placeholder="15-digit GST number" maxlength="15" style="text-transform:uppercase"></div>
+      <div class="input-wrap"><label>PAN Number</label><input type="text" id="pan" placeholder="ABCDE1234F" maxlength="10" style="text-transform:uppercase"></div>
+    </div>
+      <div class="card">
+        <div class="section-heading">Contact & Location</div>
+        <div class="grid-2">
+          <div class="input-wrap">
+            <label>City *</label>
+            <input type="text" id="city" placeholder="City">
+          </div>
+          <div class="input-wrap">
+            <label>State *</label>
+            <input type="text" id="state" placeholder="State">
+          </div>
+        </div>
+        <div class="input-wrap">
+          <label>Pincode *</label>
+          <input type="text" id="pincode" placeholder="6-digit pincode" maxlength="6" inputmode="numeric">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-heading">Tax Information</div>
+        <div class="input-wrap">
+          <label>GSTIN (optional)</label>
+          <input type="text" id="gstin" placeholder="15-digit GST number" maxlength="15" style="text-transform:uppercase">
+        </div>
+        <div class="input-wrap">
+          <label>PAN Number *</label>
+          <input type="text" id="pan" placeholder="ABCDE1234F" maxlength="10" style="text-transform:uppercase">
+        </div>
+      </div>
+
+      <div class="info-box">
+        ⓘ Your seller account will be reviewed by our team within <strong>24–48 hours</strong>. You'll receive an email once approved.
+      </div>
+
+    <div style="background:var(--bg);border-radius:var(--radius);padding:14px;margin-bottom:20px;font-size:13px;color:var(--text2)">
+      ⓘ Your seller account will be reviewed by our team within 24-48 hours. You'll receive an email once approved.
+      <button class="btn-submit" id="register-btn" onclick="registerSeller()">Submit Application</button>
+    </div>
+
+    <button class="btn btn-primary btn-block btn-lg" id="register-btn" onclick="registerSeller()">Submit Application</button>
+  </div>
+
+</div>
+</div>
+<nav class="bottom-nav"></nav>
+
+<div class="toast-msg" id="toast"></div>
+
+<script src="static/js/main.js"></script>
+<script>
+  if (!Auth.isLoggedIn()) window.location.href = 'login.html?next=seller/register.html';
+  buildNavbar('account');
+if (!Auth.isLoggedIn()) window.location.href = 'login.html?next=seller-register.html';
+
+  const user = Auth.user();
+  if (user?.role === 'seller') {
+    document.getElementById('already-seller').style.display = 'block';
+    document.getElementById('seller-form').style.display = 'none';
+  }
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast-msg show' + (type ? ' '+type : '');
+  clearTimeout(t._tid);
+  t._tid = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+const user = Auth.user();
+if (user?.role === 'seller') {
+  document.getElementById('already-seller').style.display = 'block';
+  document.getElementById('seller-form').style.display = 'none';
+}
+
+async function registerSeller() {
+  const body = {
+    business_name: document.getElementById('biz-name').value.trim(),
+    business_type: document.getElementById('biz-type').value,
+    description:   document.getElementById('biz-desc').value.trim(),
+    city:          document.getElementById('city').value.trim(),
+    state:         document.getElementById('state').value.trim(),
+    pincode:       document.getElementById('pincode').value.trim(),
+    gstin:         document.getElementById('gstin').value.trim().toUpperCase(),
+    pan:           document.getElementById('pan').value.trim().toUpperCase(),
+  };
+  if (!body.business_name)                   return showToast('Enter business name', 'error');
+  if (!body.city || !body.state || !body.pincode) return showToast('Fill all location details', 'error');
+  if (!body.pan)                             return showToast('PAN number is required', 'error');
+
+  const btn = document.getElementById('register-btn');
+  btn.disabled = true; btn.textContent = 'Submitting...';
+
+  async function registerSeller() {
+    const body = {
+      business_name: document.getElementById('biz-name').value.trim(),
+      business_type: document.getElementById('biz-type').value,
+      description: document.getElementById('biz-desc').value.trim(),
+      city: document.getElementById('city').value.trim(),
+      state: document.getElementById('state').value.trim(),
+      pincode: document.getElementById('pincode').value.trim(),
+      gstin: document.getElementById('gstin').value.trim().toUpperCase(),
+      pan: document.getElementById('pan').value.trim().toUpperCase(),
+    };
+    if (!body.business_name) return toast('Enter business name', 'error');
+    if (!body.city || !body.state || !body.pincode) return toast('Fill location details', 'error');
+    if (!body.pan) return toast('PAN number is required', 'error');
+    const btn = document.getElementById('register-btn');
+    btnLoading(btn, true);
+    try {
+      const data = await api('POST', '/seller/register', body);
+      const updated = { ...user, role: 'seller' };
+      Auth.set(Auth.token(), updated);
+      toast('Application submitted! Redirecting...', 'success');
+      setTimeout(() => window.location.href = 'seller-dashboard.html', 1200);
+    } catch(e) { toast(e.message, 'error'); }
+    finally { btnLoading(btn, false); }
+  try {
+    await api('POST', '/seller/register', body);
+    const updated = { ...user, role: 'seller' };
+    Auth.set(Auth.token(), updated);
+    showToast('Application submitted! Redirecting...', 'success');
+    setTimeout(() => window.location.href = 'seller-dashboard.html', 1200);
+  } catch(e) {
+    showToast(e.message || 'Failed to submit', 'error');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Submit Application';
+  }
+}
+</script>
+</body>
+</html>
